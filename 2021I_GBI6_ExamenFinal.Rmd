@@ -133,8 +133,11 @@ df_long %>% group_by(dataset,Gen) %>%
 
 
 ```{tex}
-# Escriba aquí su interpretación 
-#Se
+#Existe una cantidad alta de datos para BRCA, en el mismo se observa que tiene  mayor #expresión el gen ESR1.
+#Para KIPAN existe una expresión mayor del gen PTEN, así mismo se puede observar para 
+#KIRP se una una expresión inferior del gen PTEN. 
+#Para UCEC se puede observar que hay una expresión mayor de ESR1. Por otro lado para 
+#LUSC tiene una expresión mayor de gen MUC1. Y por último el 0V tiene se observa que existe una mayor expresión del gen FN1
 
 ```
 
