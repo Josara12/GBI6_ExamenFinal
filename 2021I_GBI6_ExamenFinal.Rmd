@@ -84,8 +84,7 @@ getwd() #utilizo esta función para verificar la ruta
 
 ### [0.5 PUNTOS] 1.2. Cargue la data "mRNA_expr.csv"
 ```{r data}
-
-install.packages("readr")
+#install.packages("readr")
 library(readr)
 file.choose() #Utilizo esta función para obtener la ruta donde se encuentra nuestro archivo,               #misma que nos regresará una variable tipo caracter.
 
@@ -122,8 +121,7 @@ df_long <- long_df %>% select(dataset, Gen, Expression_levels)
 library("dplyr")
 library("sjPlot")
 library("sjmisc")
-#Lista1 <- df_long %>% group_by(dataset,Gen)
-#Lista2 <- descr(x=Lista1, out= "viewer", #file="C:/Users/User/Desktop/Bioinformática1/GBI6_ExamenFinal/GBI6_ExamenFinal./Results/mRNA#_expr_summary.doc")
+
 df_long %>% group_by(dataset,Gen) %>%
   descr(Expression_levels, out="viewer", file="C:/Users/User/Desktop/Bioinformática1/GBI6_ExamenFinal/GBI6_ExamenFinal/Results/mRNA_expr_summary.doc")
 
@@ -150,14 +148,29 @@ Para esta pregunta tiene que utilizar la data ```df_long```.
 ### [1 PUNTO] 2.1 Cree la funcion ```tcga_boxplots``` para visualizar boxplots y jitterplots. El único parámetro de la función es ```dataset```. La función debe crear un boxplot de los niveles de expresión para cada gen.
 
 ```{r}
-tcga_boxplots1 <- df_long %>% filter(dataset, wind >= GATA3, Gen %in% c(GATA3))
-tcga_boxplots <- 
+library(ggplot2)
+
+tcga_boxplots <- function(x){
+  z <- df_long %>% filter(dataset == x)
+  y <- z %>% ggplot(aes(x=Gen,y=Expression_levels, color= Gen))
+}
 
 ```
 
 ### [0.5 PUNTOS] 2.2 Utilizando la función ```lapply()``` genera la lista ```cancertype_boxplots``` con las gráficas para cada tipo de cancer (cada tipo de dataset). 
 ```{r list_boxplots}
-# Escriba el código para generar la lista. 
+
+sj <- list("BRCA", "OV", "LUSC","KIPAN", "KIRP","UCEC") 
+
+cancertype_boxplots <- lapply(sj, tcga_boxplots)
+
+g <- length(cancertype_boxplots)
+
+print(paste("Número de lista cancertype_boxplots",g))
+
+cancertype_boxplots[[3]]
+class(sj)
+cancertype_boxplots
 
 
 ```
