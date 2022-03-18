@@ -77,7 +77,8 @@ Para comprender la data de esta evaluación se requiere conocer el significado d
 
 ### [0.5 PUNTOS] 1.1 Defina su directorio de trabajo. 
 ```{r wd}
-getwd()
+#mi archivo ya se encuentra en el directorio que deseo
+getwd() #utilizo esta función para verificar la ruta
 
 ```
 
@@ -98,10 +99,12 @@ head(df,4)
 ### [1 PUNTO] 1.3 Cree una función de nombre ```long_df``` para transformar la data ```df``` de la forma wide a long.
 
 ```{r funcion_long}
+library("tidyverse")
+library("dplyr")
 
 long_df <-  pivot_longer (df, 3:9, names_to = "Gen", values_to = "Expression_levels")
 
-head(long_df,4)
+head(long_df,n=4)
 
 ```
 
@@ -116,8 +119,13 @@ df_long <- long_df %>% select(dataset, Gen, Expression_levels)
 
 ### [0.5 PUNTOS] 1.5 A partir de la data ```df_long```, genere un **Descriptive table** (librería ```sjPlot```) y guárdelo en el subdirectorio "result"  con el nombre **mRNA_expr_summary.doc** (previamente debe seleccionar las celdas adecuadas con funciones de la librería ```dplyr``` en conjunto con el operador ```%>%```). 
 ```{r desc_table}
-descr(df_long, )
-group_by(dataset,Gen)
+library("dplyr")
+library("sjPlot")
+library("sjmisc")
+#Lista1 <- df_long %>% group_by(dataset,Gen)
+#Lista2 <- descr(x=Lista1, out= "viewer", #file="C:/Users/User/Desktop/Bioinformática1/GBI6_ExamenFinal/GBI6_ExamenFinal./Results/mRNA#_expr_summary.doc")
+df_long %>% group_by(dataset,Gen) %>%
+  descr(Expression_levels, out="viewer", file="C:/Users/User/Desktop/Bioinformática1/GBI6_ExamenFinal/GBI6_ExamenFinal/Results/mRNA_expr_summary.doc")
 
 ```
 
@@ -126,6 +134,7 @@ group_by(dataset,Gen)
 
 ```{tex}
 # Escriba aquí su interpretación 
+#Se
 
 ```
 
@@ -138,8 +147,8 @@ Para esta pregunta tiene que utilizar la data ```df_long```.
 ### [1 PUNTO] 2.1 Cree la funcion ```tcga_boxplots``` para visualizar boxplots y jitterplots. El único parámetro de la función es ```dataset```. La función debe crear un boxplot de los niveles de expresión para cada gen.
 
 ```{r}
-# Escriba el código para crear la función tcga_boxplots
-
+tcga_boxplots1 <- df_long %>% filter(dataset, wind >= GATA3, Gen %in% c(GATA3))
+tcga_boxplots <- 
 
 ```
 
