@@ -152,15 +152,17 @@ library(ggplot2)
 
 tcga_boxplots <- function(x){
   z <- df_long %>% filter(dataset == x)
-  y <- z %>% ggplot(aes(x=Gen,y=Expression_levels, color= Gen))
+  y <- z %>% ggplot(aes(x=Gen,y=Expression_levels, color= Gen)) + geom_boxplot() + geom_jitter()
+  y
 }
+tcga_boxplots("BRCA")
 
 ```
 
 ### [0.5 PUNTOS] 2.2 Utilizando la función ```lapply()``` genera la lista ```cancertype_boxplots``` con las gráficas para cada tipo de cancer (cada tipo de dataset). 
 ```{r list_boxplots}
 
-sj <- list("BRCA", "OV", "LUSC","KIPAN", "KIRP","UCEC") 
+sj <- unique(df_long$dataset)
 
 cancertype_boxplots <- lapply(sj, tcga_boxplots)
 
@@ -169,8 +171,6 @@ g <- length(cancertype_boxplots)
 print(paste("Número de lista cancertype_boxplots",g))
 
 cancertype_boxplots[[3]]
-class(sj)
-cancertype_boxplots
 
 
 ```
@@ -178,7 +178,8 @@ cancertype_boxplots
 ### [0.5 PUNTOS] 2.3 Guarde en el subdirectorio ```result``` el tercer plot de la lista ```cancertype_boxplots``` con el nombre ```boxplot3.png```. La definición de a figura debe ser de 300dpi. 
 ```{r boxplot3}
 # Escriba el código para guardar la tercera figura de la lista. 
-
+ni <- cancertype_boxplots[[3]]
+ggsave(filename = "Results/boxplot3.png", plot = ni , dpi = 300)
 
 ```
 
